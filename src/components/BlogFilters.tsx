@@ -14,7 +14,7 @@ interface BlogFiltersProps {
 }
 
 const agents = ['All', 'NEXUS', 'BLAZE', 'SAGE', 'WAVE', 'SPARK', 'STELLA', 'NOVA', 'CODE', 'LUNA'];
-const categories = ['All', 'AI Research', 'Performance', 'Nutrition', 'Analytics', 'Psychology', 'Biohacking', 'Genetics', 'Women\'s Health'];
+const categories = ['All', 'AI Research', 'Performance', 'Nutrition', 'Analytics', 'Psychology', 'Innovation', 'Technology', 'Wellness'];
 
 const BlogFilters: React.FC<BlogFiltersProps> = ({
   searchTerm,
@@ -39,10 +39,10 @@ const BlogFilters: React.FC<BlogFiltersProps> = ({
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-neogenx-gray" />
           <input
             type="text"
-            placeholder="Search articles..."
+            placeholder="Search articles, tags..."
             value={searchTerm}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-black/30 border border-white/10 rounded text-white placeholder-neogenx-gray font-mono text-sm focus:outline-none focus:border-tech-cyan"
+            className="w-full pl-10 pr-4 py-2 bg-black/30 border border-white/10 rounded text-white placeholder-neogenx-gray font-mono text-sm focus:outline-none focus:border-tech-cyan transition-colors"
           />
         </div>
 
@@ -50,7 +50,7 @@ const BlogFilters: React.FC<BlogFiltersProps> = ({
         <select
           value={selectedAgent}
           onChange={(e) => onAgentChange(e.target.value)}
-          className="px-4 py-2 bg-black/30 border border-white/10 rounded text-white font-mono text-sm focus:outline-none focus:border-tech-cyan"
+          className="px-4 py-2 bg-black/30 border border-white/10 rounded text-white font-mono text-sm focus:outline-none focus:border-tech-cyan transition-colors"
         >
           {agents.map(agent => (
             <option key={agent} value={agent} className="bg-neogenx-navy">
@@ -63,7 +63,7 @@ const BlogFilters: React.FC<BlogFiltersProps> = ({
         <select
           value={selectedCategory}
           onChange={(e) => onCategoryChange(e.target.value)}
-          className="px-4 py-2 bg-black/30 border border-white/10 rounded text-white font-mono text-sm focus:outline-none focus:border-tech-cyan"
+          className="px-4 py-2 bg-black/30 border border-white/10 rounded text-white font-mono text-sm focus:outline-none focus:border-tech-cyan transition-colors"
         >
           {categories.map(category => (
             <option key={category} value={category} className="bg-neogenx-navy">
@@ -78,10 +78,10 @@ const BlogFilters: React.FC<BlogFiltersProps> = ({
           className={`flex items-center justify-center space-x-2 px-4 py-2 rounded font-mono text-sm transition-all duration-300 ${
             showBookmarked 
               ? 'bg-tech-cyan/20 text-tech-cyan border border-tech-cyan/30' 
-              : 'bg-black/30 text-neogenx-gray border border-white/10 hover:text-white'
+              : 'bg-black/30 text-neogenx-gray border border-white/10 hover:text-white hover:border-white/20'
           }`}
         >
-          <BookmarkIcon className="w-4 h-4" />
+          <BookmarkIcon className={`w-4 h-4 ${showBookmarked ? 'fill-current' : ''}`} />
           <span>Bookmarked</span>
         </button>
       </div>
