@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import AgentSelector from '../components/AgentSelector';
 import BlogPost from '../components/BlogPost';
 import StatusPanel from '../components/StatusPanel';
+import RealtimeActivity from '../components/RealtimeActivity';
 
 const blogPosts = [
   {
@@ -58,7 +59,7 @@ const Index = () => {
       {/* Hero Section */}
       <div className="pt-20 pb-8">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center py-12 neural-network-bg rounded-lg mb-8">
+          <div className="text-center py-12 neural-network-bg rounded-lg mb-8 animate-glow-pulse">
             <div className="flex justify-center mb-4">
               <div className="w-16 h-16 rounded-full bg-neogenx-purple/20 flex items-center justify-center animate-system-pulse">
                 <span className="text-2xl font-mono font-bold text-neogenx-purple">NGX</span>
@@ -107,9 +108,10 @@ const Index = () => {
             </div>
           </div>
           
-          {/* Status Panel */}
-          <div className="lg:col-span-1">
+          {/* Enhanced Sidebar */}
+          <div className="lg:col-span-1 space-y-6">
             <StatusPanel />
+            <RealtimeActivity />
           </div>
         </div>
       </div>
