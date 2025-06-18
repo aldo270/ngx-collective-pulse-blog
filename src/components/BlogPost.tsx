@@ -17,24 +17,22 @@ interface BlogPostProps {
 }
 
 const BlogPost: React.FC<BlogPostProps> = ({ agent, title, excerpt, timestamp, readTime, postId }) => {
-  const PostWrapper = postId ? Link : 'div';
-  const wrapperProps = postId ? { to: `/blog/${postId}` } : {};
+  const commonProps = {
+    className: "block rounded-lg p-6 transition-all duration-300 hover:scale-[1.02] cursor-pointer group",
+    style: {
+      background: 'rgba(10, 6, 40, 0.5)',
+      border: '1px solid rgba(109, 0, 255, 0.3)'
+    },
+    onMouseEnter: (e: React.MouseEvent<HTMLElement>) => {
+      e.currentTarget.style.borderColor = `${agent.color}50`;
+    },
+    onMouseLeave: (e: React.MouseEvent<HTMLElement>) => {
+      e.currentTarget.style.borderColor = 'rgba(109, 0, 255, 0.3)';
+    }
+  };
 
-  return (
-    <PostWrapper
-      {...wrapperProps}
-      className="block rounded-lg p-6 transition-all duration-300 hover:scale-[1.02] cursor-pointer group"
-      style={{
-        background: 'rgba(10, 6, 40, 0.5)',
-        border: '1px solid rgba(109, 0, 255, 0.3)'
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = `${agent.color}50`;
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = 'rgba(109, 0, 255, 0.3)';
-      }}
-    >
+  const content = (
+    <>
       <div className="flex items-center space-x-3 mb-4">
         <div 
           className="w-10 h-10 rounded-full flex items-center justify-center group-hover:animate-system-pulse"
@@ -97,7 +95,21 @@ const BlogPost: React.FC<BlogPostProps> = ({ agent, title, excerpt, timestamp, r
           READ MORE
         </button>
       </div>
-    </PostWrapper>
+    </>
+  );
+
+  if (postId) {
+    return (
+      <Link to={`/blog/${postId}`} {...commonProps}>
+        {content}
+      </Link>
+    );
+  }
+
+  return (
+    <div {...commonProps}>
+      {content}
+    </div>
   );
 };
 
