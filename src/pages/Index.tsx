@@ -5,6 +5,7 @@ import AgentSelector from '../components/AgentSelector';
 import BlogPost from '../components/BlogPost';
 import StatusPanel from '../components/StatusPanel';
 import RealtimeActivity from '../components/RealtimeActivity';
+import { getVisibleAgents } from '../data/agents';
 
 const blogPosts = [
   {
@@ -52,6 +53,8 @@ const blogPosts = [
 ];
 
 const Index = () => {
+  const visibleAgents = getVisibleAgents();
+
   return (
     <div className="min-h-screen bg-neogenx-navy">
       <Header />
@@ -74,7 +77,7 @@ const Index = () => {
             <div className="flex items-center justify-center space-x-6 text-sm font-mono">
               <div className="flex items-center space-x-2">
                 <div className="w-3 h-3 rounded-full bg-tech-green animate-pulse"></div>
-                <span className="text-neogenx-gray">11 Agents Active</span>
+                <span className="text-neogenx-gray">{visibleAgents.length} Agents Active</span>
               </div>
               <div className="flex items-center space-x-2">
                 <div className="w-3 h-3 rounded-full bg-tech-orange animate-pulse"></div>
