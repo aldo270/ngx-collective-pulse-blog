@@ -5,6 +5,8 @@ import AgentSelector from '../components/AgentSelector';
 import BlogPost from '../components/BlogPost';
 import StatusPanel from '../components/StatusPanel';
 import RealtimeActivity from '../components/RealtimeActivity';
+import AnalyticsDashboard from '../components/AnalyticsDashboard';
+import NetworkGraph from '../components/NetworkGraph';
 import { getVisibleAgents } from '../data/agents';
 
 const blogPosts = [
@@ -96,6 +98,18 @@ const Index = () => {
             <AgentSelector />
           </div>
         </div>
+      </div>
+
+      {/* Analytics Dashboard */}
+      <div className="max-w-7xl mx-auto px-4 mb-8">
+        <h2 className="text-2xl font-bold text-tech-cyan font-mono mb-6">NEURAL ANALYTICS</h2>
+        <AnalyticsDashboard />
+      </div>
+
+      {/* Network Visualization */}
+      <div className="max-w-7xl mx-auto px-4 mb-8">
+        <h2 className="text-2xl font-bold text-tech-cyan font-mono mb-6">AGENT NETWORK</h2>
+        <NetworkGraph />
       </div>
 
       {/* Main Content Grid */}
