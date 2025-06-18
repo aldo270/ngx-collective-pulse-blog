@@ -100,6 +100,9 @@
 
   body {
     @apply bg-neogenx-navy text-neogenx-white font-mono;
+    touch-action: manipulation;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
@@ -135,12 +138,37 @@
   100% { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes slideInUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounceIn {
+  0% { opacity: 0; transform: scale(0.3); }
+  50% { opacity: 1; transform: scale(1.05); }
+  70% { transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes ripple {
+  0% { transform: scale(0); opacity: 1; }
+  100% { transform: scale(4); opacity: 0; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200px 0; }
+  100% { background-position: calc(200px + 100%) 0; }
+}
+
 .animate-data-flow { animation: dataFlow 3s ease-in-out infinite; }
 .animate-system-pulse { animation: systemPulse 2s ease-in-out infinite; }
 .animate-neural-pulse { animation: neuralPulse 3s ease-in-out infinite; }
 .animate-glow-pulse { animation: glowPulse 4s ease-in-out infinite; }
 .animate-status-blink { animation: statusBlink 2s ease-in-out infinite; }
 .animate-fade-in { animation: fadeIn 0.3s ease-out; }
+.animate-slide-in-up { animation: slideInUp 0.4s ease-out; }
+.animate-bounce-in { animation: bounceIn 0.6s ease-out; }
+.animate-shimmer { animation: shimmer 2s infinite; }
 
 .neural-network-bg {
   background: radial-gradient(circle, rgba(109, 0, 255, 0.3) 0%, rgba(10, 6, 40, 0.8) 70%);
@@ -181,4 +209,164 @@
   );
   background-size: 400% 400%;
   animation: dataFlow 8s ease-in-out infinite;
+}
+
+/* Premium Interactive Elements */
+.touch-feedback {
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(0);
+}
+
+.touch-feedback::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.touch-feedback:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+.glass-morphism {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.neon-border {
+  position: relative;
+  border: 1px solid transparent;
+  background: linear-gradient(45deg, transparent, transparent) padding-box,
+              linear-gradient(45deg, #00D4FF, #6D00FF, #00FF7F) border-box;
+}
+
+.shimmer-effect {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  background-size: 200px 100%;
+  background-repeat: no-repeat;
+  animation: shimmer 2s infinite;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(109, 0, 255, 0.5) rgba(10, 6, 40, 0.3);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(10, 6, 40, 0.3);
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #6D00FF, #00D4FF);
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #00D4FF, #00FF7F);
+}
+
+/* Mobile Touch Optimizations */
+@media (max-width: 768px) {
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .mobile-padding {
+    padding: 1rem;
+  }
+  
+  .mobile-text {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+}
+
+/* Responsive Grid Enhancements */
+.responsive-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+@media (max-width: 640px) {
+  .responsive-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+/* High Performance Animations */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.smooth-transform {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.elastic-bounce {
+  transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Dark Mode Optimizations */
+@media (prefers-color-scheme: dark) {
+  .adaptive-text {
+    color: #ffffff;
+  }
+  
+  .adaptive-bg {
+    background-color: rgba(10, 6, 40, 0.9);
+  }
+}
+
+/* Accessibility Enhancements */
+@media (prefers-reduced-motion: reduce) {
+  .animate-data-flow,
+  .animate-system-pulse,
+  .animate-neural-pulse,
+  .animate-glow-pulse,
+  .animate-status-blink,
+  .animate-shimmer {
+    animation: none;
+  }
+}
+
+.focus-visible:focus {
+  outline: 2px solid #00D4FF;
+  outline-offset: 2px;
+}
+
+/* Print Styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  .print-friendly {
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+  }
 }
