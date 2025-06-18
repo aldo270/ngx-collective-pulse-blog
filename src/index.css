@@ -130,11 +130,17 @@
   51%, 100% { opacity: 0.3; }
 }
 
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
 .animate-data-flow { animation: dataFlow 3s ease-in-out infinite; }
 .animate-system-pulse { animation: systemPulse 2s ease-in-out infinite; }
 .animate-neural-pulse { animation: neuralPulse 3s ease-in-out infinite; }
 .animate-glow-pulse { animation: glowPulse 4s ease-in-out infinite; }
 .animate-status-blink { animation: statusBlink 2s ease-in-out infinite; }
+.animate-fade-in { animation: fadeIn 0.3s ease-out; }
 
 .neural-network-bg {
   background: radial-gradient(circle, rgba(109, 0, 255, 0.3) 0%, rgba(10, 6, 40, 0.8) 70%);
