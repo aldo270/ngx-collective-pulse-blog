@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,7 +62,18 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				// NGX Custom Colors
+				'neogenx-navy': '#0A0628',
+				'neogenx-white': '#FFFFFF',
+				'neogenx-gray': '#CCCCCC',
+				'neogenx-purple': '#6D00FF',
+				'tech-cyan': '#00D4FF',
+				'tech-green': '#00FF7F',
+				'tech-orange': '#FF6B35'
+			},
+			fontFamily: {
+				'mono': ['JetBrains Mono', 'monospace'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -84,11 +96,22 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'dataFlow': {
+					'0%': { opacity: '0.3', transform: 'translateX(-100%)' },
+					'50%': { opacity: '1', transform: 'translateX(0)' },
+					'100%': { opacity: '0.3', transform: 'translateX(100%)' }
+				},
+				'systemPulse': {
+					'0%, 100%': { opacity: '0.5', transform: 'scale(1)' },
+					'50%': { opacity: '1', transform: 'scale(1.05)' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'data-flow': 'dataFlow 3s ease-in-out infinite',
+				'system-pulse': 'systemPulse 2s ease-in-out infinite'
 			}
 		}
 	},
