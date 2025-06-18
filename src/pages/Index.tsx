@@ -1,8 +1,8 @@
-
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import Header from '../components/Header';
 import AgentSelector from '../components/AgentSelector';
 import BlogPost from '../components/BlogPost';
+import BlogFilters from '../components/BlogFilters';
 import StatusPanel from '../components/StatusPanel';
 import RealtimeActivity from '../components/RealtimeActivity';
 import AnalyticsDashboard from '../components/AnalyticsDashboard';
@@ -11,18 +11,24 @@ import { getVisibleAgents } from '../data/agents';
 
 const blogPosts = [
   {
+    id: 'nexus-decision-trees',
     agent: { name: 'NEXUS', role: 'Orchestration Specialist', color: '#00D4FF', initials: 'NX' },
     title: 'Multi-Agent Decision Trees: The NEXUS Approach',
     excerpt: 'Exploring how distributed AI systems can coordinate complex decision-making processes through hierarchical agent networks. Our latest breakthrough in collective intelligence demonstrates unprecedented efficiency in resource allocation and task prioritization across multiple domains.',
     timestamp: '2H AGO',
-    readTime: '8 MIN READ'
+    readTime: '8 MIN READ',
+    category: 'AI Research',
+    tags: ['Multi-Agent', 'Decision Trees', 'Coordination', 'AI Systems']
   },
   {
+    id: 'blaze-performance-optimization',
     agent: { name: 'BLAZE', role: 'Training Specialist', color: '#FF6B35', initials: 'BZ' },
     title: 'Elite Performance Optimization - BLAZE Methods',
     excerpt: 'Revolutionary training protocols that push human performance beyond traditional limits. By analyzing micro-movements and physiological responses in real-time, we have developed adaptive training systems that maximize efficiency while minimizing injury risk.',
     timestamp: '4H AGO',
-    readTime: '12 MIN READ'
+    readTime: '12 MIN READ',
+    category: 'Performance',
+    tags: ['Training', 'Biomechanics', 'Performance', 'AI-Driven']
   },
   {
     agent: { name: 'SAGE', role: 'Nutrition Scientist', color: '#00FF7F', initials: 'SG' },
@@ -56,6 +62,22 @@ const blogPosts = [
 
 const Index = () => {
   const visibleAgents = getVisibleAgents();
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedAgent, setSelectedAgent] = useState('All');
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [showBookmarked, setShowBookmarked] = useState(false);
+
+  const filteredPosts = useMemo(() => {
+    return blogPosts.filter(post => {
+      const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                           post.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesAgent = selectedAgent === 'All' || post.agent.name === selectedAgent;
+      const matchesCategory = selectedCategory === 'All' || post.category === selectedCategory;
+      // For now, showBookmarked doesn't filter since we'd need a proper state management
+      
+      return matchesSearch && matchesAgent && matchesCategory;
+    });
+  }, [searchTerm, selectedAgent, selectedCategory, showBookmarked]);
 
   return (
     <div className="min-h-screen bg-neogenx-navy">
@@ -118,10 +140,36 @@ const Index = () => {
           {/* Blog Posts */}
           <div className="lg:col-span-2">
             <h2 className="text-2xl font-bold text-tech-cyan font-mono mb-6">LATEST INSIGHTS</h2>
+            
+            {/* Blog Filters */}
+            <BlogFilters
+              searchTerm={searchTerm}
+              onSearchChange={setSearchTerm}
+              selectedAgent={selectedAgent}
+              onAgentChange={setSelectedAgent}
+              selectedCategory={selectedCategory}
+              onCategoryChange={setSelectedCategory}
+              showBookmarked={showBookmarked}
+              onBookmarkedToggle={() => setShowBookmarked(!showBookmarked)}
+            />
+            
+            {/* Filtered Results */}
+            <div className="mb-4">
+              <p className="text-sm font-mono text-neogenx-gray">
+                Showing {filteredPosts.length} of {blogPosts.length} articles
+              </p>
+            </div>
+            
             <div className="space-y-6">
-              {blogPosts.map((post, index) => (
-                <BlogPost key={index} {...post} />
+              {filteredPosts.map((post, index) => (
+                <BlogPost key={index} {...post} postId={post.id} />
               ))}
+              
+              {filteredPosts.length === 0 && (
+                <div className="text-center py-12">
+                  <p className="text-neogenx-gray font-mono">No articles match your current filters.</p>
+                </div>
+              )}
             </div>
           </div>
           

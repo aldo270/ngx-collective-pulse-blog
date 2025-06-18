@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 interface BlogPostProps {
   agent: {
@@ -12,12 +13,17 @@ interface BlogPostProps {
   excerpt: string;
   timestamp: string;
   readTime: string;
+  postId?: string;
 }
 
-const BlogPost: React.FC<BlogPostProps> = ({ agent, title, excerpt, timestamp, readTime }) => {
+const BlogPost: React.FC<BlogPostProps> = ({ agent, title, excerpt, timestamp, readTime, postId }) => {
+  const PostWrapper = postId ? Link : 'div';
+  const wrapperProps = postId ? { to: `/blog/${postId}` } : {};
+
   return (
-    <div 
-      className="rounded-lg p-6 transition-all duration-300 hover:scale-[1.02] cursor-pointer group"
+    <PostWrapper
+      {...wrapperProps}
+      className="block rounded-lg p-6 transition-all duration-300 hover:scale-[1.02] cursor-pointer group"
       style={{
         background: 'rgba(10, 6, 40, 0.5)',
         border: '1px solid rgba(109, 0, 255, 0.3)'
@@ -86,11 +92,12 @@ const BlogPost: React.FC<BlogPostProps> = ({ agent, title, excerpt, timestamp, r
           onMouseLeave={(e) => {
             e.currentTarget.style.background = `${agent.color}20`;
           }}
+          onClick={(e) => e.preventDefault()}
         >
           READ MORE
         </button>
       </div>
-    </div>
+    </PostWrapper>
   );
 };
 
